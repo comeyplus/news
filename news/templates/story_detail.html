@@ -1,0 +1,46 @@
+{% extends 'bootstrap_base.html' %}
+
+{% block title %}
+	{{story.title}}
+{% endblock %}
+
+{% block extra_js %}
+	<script type="text/javascript"> 
+		function showImg( url ) { 
+			var frameid = 'frameimg' + Math.random(); 
+			window.img = '<img id="img" src=\''+url+'?'+Math.random()+'\' /><script>window.onload = function() { parent.document.getElementById(\''+frameid+'\').height = document.getElementById(\'img\').height+\'px\'; }<'+'/script>'; 
+			document.write('<iframe id="'+frameid+'" src="javascript:parent.img;" frameBorder="0" scrolling="no" width="100%"></iframe>'); 
+		} 
+	</script> 
+{% endblock %}
+
+
+{% block content %}
+
+      <div class="blog-header">
+        <h3 class="blog-title">{{story.title}}</h3>
+        <p class="lead blog-description"><a href = "{{story.share_url}}">{{story.share_url}}</a></p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-11 blog-main">
+
+          <div class="blog-post">
+          <script type="text/javascript"> 
+			function showImg( url ) { 
+			var frameid = 'frameimg' + Math.random(); 
+			window.img = '<img id="img" src=\''+url+'?'+Math.random()+'\' /><script>window.onload = function() { parent.document.getElementById(\''+frameid+'\').height = document.getElementById(\'img\').height+\'px\'; }<'+'/script>'; 
+			document.write('<iframe id="'+frameid+'" src="javascript:parent.img;" frameBorder="0" scrolling="no" width="100%"></iframe>'); 
+			} 
+			</script> 
+          {% autoescape off %}
+			{{story.body_with_pic}}
+		{% endautoescape %}
+          
+          </div><!-- /.blog-post -->
+        </div><!-- /.blog-main -->
+      </div><!-- /.row -->
+
+{% endblock %}
+

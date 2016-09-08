@@ -1,0 +1,38 @@
+{% extends 'bootstrap_base.html' %}
+
+{% block title %}
+	{{title}}
+{% endblock %}
+
+{% block extra_css %}
+	<link href="/static/css/cb_comment.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+      	<div class="blog-header">
+        	<h3>{{title}}</h3>
+        	<p class="lead blog-description"><a href = "{{share_url}}">{{share_url}}</a></p>
+      	</div>
+
+      	<div class="row">
+      		<div class="col-sm-11 blog-main">
+				<div class="introduction" style="">
+				 	{% autoescape off %}
+						{{summary}}
+					{% endautoescape %}
+				</div>
+    		   	<div class="blog-post">
+       				{% autoescape off %}
+						{{body}}
+					{% endautoescape %}
+    	   		</div><!-- /.blog-post -->
+			 	共有{{comment_count_all}}条评论，显示{{comment_count_show}}条
+	  			<div class="comments">
+          			{% autoescape off %}
+						{{comments}}
+					{% endautoescape %}
+    			</div>
+       		</div><!-- /.blog-main -->
+      	</div><!-- /.row -->
+{% endblock %}

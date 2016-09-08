@@ -1,0 +1,49 @@
+{% extends 'bootstrap_base.html' %}
+
+{% block title %}
+	知乎日报 {{date_str}}
+{% endblock %}
+
+{% block extra_js %}
+	
+{% endblock %}
+
+{% block content %}
+
+	<script type="text/javascript"> 
+		function showImg( url ) { 
+		var frameid = 'frameimg' + Math.random(); 
+		window.img = '<img id="img" jump_url class="img-thumbnail" src=\''+url+'?'+Math.random()+'\' /><script>window.onload = function() { parent.document.getElementById(\''+frameid+'\').height = document.getElementById(\'img\').height+\'px\'; }<'+'/script>'; 
+		document.write('<iframe id="'+frameid+'" src="javascript:parent.img;" frameBorder="0" scrolling="no" width="100%"></iframe>'); 
+		} 
+	</script> 
+
+	<div class="row">
+		{% for story in story_qs %}
+	       	<div class="col-xs-6 col-sm-4 col-md-3">
+		    	<a href="{% url 'news:story_detail' story_id=story.story_id  %}">
+		      		<!--<img class="img-thumbnail" src="//v4.bootcss.com/examples/screenshots/starter-template.jpg" alt="" />-->
+			    	<div id="hotlinking"><script type="text/javascript">showImg("{{story.cover_picture_first}}");</script></div>
+		    	</a>
+		    	<div style= "height:50px;"><a href="{% url 'news:story_detail' story_id=story.story_id  %}">{{story.title}}</a></div>
+		  	</div>
+	  	{% endfor %}
+	
+	</div><!-- /.row -->
+		<nav>
+            <ul class="pager">
+              <li><a href="?date={{last_date_str}}">Previous</a></li>
+              
+              {% if next_date_str %}
+              <li><a href="?date={{next_date_str}}">Next</a></li>
+              {% endif %}
+              
+            </ul>
+            
+            <form method="get" action="" >
+		     <input type="date" name="date" value="{{date_str}}">
+		     <button type="submit">跳转</button>
+			</form>
+            
+          </nav>
+{% endblock %}

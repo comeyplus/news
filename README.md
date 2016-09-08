@@ -1,2 +1,2 @@
-# news
-新闻聚合
+NEWS
+基于Django的新闻聚合APP

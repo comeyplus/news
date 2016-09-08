@@ -1,0 +1,29 @@
+{% extends 'bootstrap_base.html' %}
+
+{% block title %}
+	CnBeta 页{{ page_number }}
+{% endblock %}
+
+{% block content %}
+
+	<table class='table'>
+		{% for news in news_list %}
+	       <tr><td><a href = {% url 'news:convert_detail' source='cb' id=news.0  %}>{{news.1}}</a></td></tr>
+	  	{% endfor %}
+	</table>
+	<nav>
+    	<ul class="pager">
+           	{% if previous_page %}
+			<li><a href="?page={{previous_page}}">Previous</a></li>
+            {% else %}
+             	<li class="previous disabled"><a href="javascript:void(0)">Previous</a></li>
+            {% endif %}
+            <li><a href="?page={{next_page}}">Next</a></li>
+    	</ul>
+           
+        <form method="get" action="" >
+	    	<input type="text" name="page" value="{{ page_number }}">
+	    	<button type="submit">跳转</button>
+		</form>
+	</nav>
+{% endblock %}
