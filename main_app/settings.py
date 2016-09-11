@@ -104,11 +104,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static_files'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    # 'whojoy/static',
-    # 这里存的是服务器本地路径
-    # '/var/www/static/',
 )
-
 MAIN_SERVER = True
