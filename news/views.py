@@ -22,6 +22,11 @@ def news_home(request):
     return HttpResponseRedirect(reverse('news:story_list', kwargs={'source': 'zhihudaily'}))
 
 
+@gzip_page
+def about(request):
+    return render_to_response('about.html', {'nav_item': 'about'})
+
+
 class NewsViewBase(TemplateView):
 
     @method_decorator(gzip_page)
@@ -86,7 +91,7 @@ class NewsList(NewsViewBase):
     def get_context_data(self, source, **kwargs):
         if not self.media_display():
             self.template_name = 'newslist_no_pic.html'
-        
+
         date, last_date_str, date_str, next_date_str = self.get_date()
         dailydate = DailyDate.objects.update_daily_date_with_date(
             date, source=source)
@@ -128,7 +133,7 @@ class ConvertList(NewsViewBase):
             if page_number > 1:
                 context['previous_page'] = page_number - 1
             context['next_page'] = page_number + 1
-    
+
             context['news_list'] = news_list
             context['nav_item'] = 'cnbeta'
             return context
@@ -161,11 +166,3 @@ class ConvertDetail(NewsViewBase):
         context['comment_count_show'] = result['comment_count_show']
         context['nav_item'] = 'cnbeta'
         return context
-
-@gzip_page
-def about(request):
-    return render_to_response('about.html', {'nav_item': 'about'})
-
-
-
-

@@ -1,36 +1,29 @@
-{% extends 'bootstrap_base.html' %}
-
-{% block title %}
-	知乎日报 {{date_str}}
-{% endblock %}
-
-{% block extra_js %}
-	
-{% endblock %}
+{% extends 'bootstrap_base.html' %} 
+{% block title %} 知乎日报 {{date_str}}
+{% endblock %} {% block extra_js %} {% endblock %} 
 
 {% block content %}
+<table class='table'>
+	{% for story in story_qs %}
+	<tr>
+		<td><a href={% url 'news:story_detail' story_id=story.story_id%}>{{story.title}}</a></td>
+	</tr>
+	{% endfor %}
+</table>
 
-	<table class='table'>
-		{% for story in story_qs %}
-	       <tr><td><a href = {% url 'news:story_detail' story_id=story.story_id  %}>{{story.title}}</a></td></tr>
-	  	{% endfor %}
-	</table>
 
+<nav>
+	<ul class="pager">
+		<li><a href="?date={{last_date_str}}">Previous</a></li> {% if
+		next_date_str %}
+		<li><a href="?date={{next_date_str}}">Next</a></li> {% endif %}
 
-		<nav>
-            <ul class="pager">
-              <li><a href="?date={{last_date_str}}">Previous</a></li>
-              
-              {% if next_date_str %}
-              <li><a href="?date={{next_date_str}}">Next</a></li>
-              {% endif %}
-              
-            </ul>
-            
-            <form method="get" action="" >
-		     <input type="date" name="date" value="{{date_str}}">
-		     <button type="submit">跳转</button>
-			</form>
-            
-          </nav>
+	</ul>
+
+	<form method="get" action="">
+		<input type="date" name="date" value="{{date_str}}">
+		<button type="submit">跳转</button>
+	</form>
+
+</nav>
 {% endblock %}
