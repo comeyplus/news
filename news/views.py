@@ -153,6 +153,12 @@ class ConvertDetail(NewsViewBase):
         if not self.media_display():
             body = self.hide_media(body)
 
+        soup = BeautifulSoup(body, "html.parser")
+        last_p = soup.find_all('p')[-2:]
+        for p in last_p:
+            p.decompose()
+        body = str(soup)
+
         context = {}
         context['body'] = body
         context['share_url'] = result['share_url']
